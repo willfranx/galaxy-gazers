@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>doctype = html
+<html>
+<head>
+<title>Astronomers</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible and hides the others
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newAstronomer() { showform('insert'); }
+    function updateAstronomer(astronomerID) { showform('update'); }
+    function deleteAstronomer(astronomerID) { showform ('delete'); }
+    function browseAstronomers() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseAstronomers()">
+<h1>Astronomers</h1>
+
+[ <a href="Astronomers.html">Astronomers</a> | <a href="Celestial_Objects.html">Celestial_Objects</a> |<a href="Customers.html">Customers</a>| <a href="Sales.html">Sales</a> | <a href="Prints.html">Prints</a>  ]
+
+<div id="browse">
+<p><a href="#" onclick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th></th>
+    <th></th>
+    <th>astronomer_id</th>
+    <th>fname</th>
+    <th>lname</th>
+    <th>email</th>
+    <th>social media handle</th>
+  </tr>
+  <tr>
+    <td><a href="#" onclick="updateAstronomer('this.AstronomerID')">Edit</a></td>
+    <td><a href="#" onclick="deleteAstronomer('this.AstronomerID')">Delete</a></td>
+    <td align="right" >1</td>
+    <td >Chet</td>
+    <td>Ubetchya</td>
+    <td>chetU@gmail.com</td>
+    <td>@chetbet</td>
+  </tr>
+  <tr>
+    <td><a href="#" onclick="updateAstronomer('this.AstronomerID')">Edit</a></td>
+    <td><a href="#" onclick="deleteAstronomer('this.AstronomerID')">Delete</a></td>
+    <td align="right" >2</td>
+    <td>Timmy</td>
+    <td>Turner</td>
+    <td>Timmy.Turner@hotmail.com</td>
+    <td>@timmyTbb</td>
+  </tr>
+  <tr>
+    <td><a href="#" onclick="updateAstronomer('this.AstronomerID')">Edit</a></td>
+    <td><a href="#" onclick="deleteAstronomer('this.AstronomerID')">Delete</a></td>
+    <td align="right">3</td>
+    <td>Wanda</td>
+    <td></td>
+    <td>wandawishmaker@gmail.com</td>
+    <td>@wandawishmaker</td>
+  </tr>
+  <tr>
+    <td><a href="#" onclick="newAstronomer()">Add</a></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> 
+<div id="insert">
+    <form method="POST" id="addAstronomer">
+        <legend><strong>Add Astronomer</strong></legend>
+          <fieldset class="fields">
+            <label> first name </label> <input type="text" name="fname">
+            <p><label> last name </label> <input type="text" name="lname"></p>
+            <p><label> email </label> <input type="text" name="email"></p>
+            <p><label> handle </label> <input type="text" name="handle"></p>
+      </fieldset>
+          <input class="btn" type="submit" id="addAstronomer" value="Add Astronomer">
+          <input class="btn" type="button" value="cancel" onclick="browseAstronomers()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateAstronomer">
+        <legend><strong>Update Astronomer</strong></legend>
+        <fieldset class="fields">
+            <input type="hidden" name="AstronomerID" id="updateAstronomerID" value="1">
+            <label>Astronomer ID: </label> 1
+            <p><label> first name </label> <input type="text" name="fname" value="Chet"></p>
+            <p></p><label> last name </label> <input type="text" name="lname" value="Ubetchya">
+            <p></p><label> email </label> <input type="text" name="age" value="chetU@gmail.com">
+            <p></p><label> handle </label> <input type="text" name="age" value="@chetbet">
+        </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveAstronomer" value="Save Update">
+          <input class="btn" type="button" value="cancel" onclick="browseAstronomers()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteAstronomer">
+      <legend><strong>Delete Astronomer</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="personID" id="deleteAstronomerID" value="1">
+          <label><strong>Astronomer ID:</strong></label> 1
+            <label> <strong>Name</strong> </label> Chet Ubetchya
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteAstronomer" value="Delete Astronomer">
+          <input class="btn" type="button" value="cancel" onclick="browseAstronomers()">
+  </form> 
+</div>
+
+</body>
+</html>

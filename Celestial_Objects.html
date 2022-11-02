@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Celestial_Objects</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newObject() { showform('insert'); }
+    function updateObject(objectID) { showform('update'); }
+    function deleteObject(objectID) { showform ('delete'); }
+    function browseObjects() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseObjects()">
+<h1>Celestial Objects</h1>
+
+[ <a href="Astronomers.html">Astronomers</a> | <a href="Celestial_Objects.html">Celestial_Objects</a> |<a href="Customers.html">Customers</a>| <a href="Sales.html">Sales</a> | <a href="Prints.html">Prints</a>  ]
+
+<div id="browse">
+<p><a href="#" onclick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th></th>
+    <th></th>
+    <th>object_id</th>
+    <th>astronomer_id</th>
+    <th>type</th>
+    <th>name</th>
+  </tr>
+  <tr>
+    <td><a href="#" onclick="updateObject('this.ObjectID')">Edit</a></td>
+    <td><a href="#" onclick="deleteObject('this.ObjectID')">Delete</a></td>
+    <td align="right" >15</td>
+    <td align="right" >2</td>
+    <td>Nebula</td>
+    <td>The Crab Nebula</td>
+  </tr>
+  <tr>
+    <td><a href="#" onclick="updateObject('this.ObjectID')">Edit</a></td>
+    <td><a href="#" onclick="deleteObject('this.ObjectID')">Delete</a></td>
+    <td align="right" >18</td>
+    <td align="right" >5</td>
+    <td>Planet</td>
+    <td >Mars</td>
+  </tr>
+  <tr>
+    <td><a href="#" onclick="updateObject('this.ObjectID')">Edit</a></td>
+    <td><a href="#" onclick="deleteObject('this.ObjectID')">Delete</a></td>
+    <td align="right" >20</td>
+    <td align="right" >1</td>
+    <td>Planet</td>
+    <td>Saturn</td>
+  </tr>
+  <tr><th><a href="#" onclick="newObject()">Add</a></th></tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addObject">
+        <legend><strong>Add Object</strong></legend>
+          <fieldset class="fields">
+            <label> astronomer ID</label> <select name="AstronomerID">
+              <option value ="1">1 - Chet Ubetchya</option>
+              <option value="2">2 - Timmy Turner</option>
+              <option value="3">3 - Cosmo</option>
+              <option value="4">4 - Wanda</option>
+              <option value="5">5 - Timmy's Dad</option>
+              </select>
+            <p></p><label> type </label> <select name="type">
+              <option value ="1">Planet</option>
+              <option value="2">Nebula</option>
+              <option value="3">Comet</option>
+              <option value="4">Asteroid</option>
+              <option value="5">Moon</option>
+              <option value="6">Open Space</option>
+              </select>
+            <p></p><label> object name </label> <input type="text" name="name">
+      </fieldset>
+          <input class="btn" type="submit" id="addObject" value="Add Object">
+          <input class="btn" type="button" value="cancel" onclick="browseObjects()">
+	</form> 
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateObject">
+        <legend><strong>Update Object</strong></legend>
+          <fieldset class="fields">
+            <input type="hidden" name="ObjectID" id="updateObjectID" value="1">
+            <label> Object ID: </label> 15
+            <p></p><label> Astronomer ID: </label> 2
+            <p></p><label> type </label> <select name="type">
+              <option value ="1">Planet</option>
+              <option value="2">Nebula</option>
+              <option value="3">Comet</option>
+              <option value="4">Asteroid</option>
+              <option value="5">Moon</option>
+              <option value="6">Open Space</option>
+              </select>
+            <p></p><label> object name </label> <input type="text" name="name" value ="The Crab Nebula">
+
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveObject" value="Update Object">
+          <input class="btn" type="button" value="Cancel" onclick="browseObjects()">
+	</form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deletePerson">
+      <legend><strong>Delete Person</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="personID" id="deletepersonID" value="1">
+          <label><strong>ID:</strong></label> 15
+            <label> <strong>Name</strong> </label> The Crab Nebula
+            
+    </fieldset>
+    <input class="btn" type="submit" id="deleteObject" value="Delete Object">
+          <input class="btn" type="button" value="cancel" onclick="browseObjects()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>People</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newPrint() { showform('insert'); }
+    function updatePrint(printID) { showform('update'); }
+    function deletePrint(printID) { showform ('delete'); }
+    function browsePrints() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browsePrints()">
+<h1>Prints</h1>
+
+[ <a href="Astronomers.html">Astronomers</a> | <a href="Celestial_Objects.html">Celestial_Objects</a> |<a href="Customers.html">Customers</a>| <a href="Sales.html">Sales</a> | <a href="Prints.html">Prints</a>  ]
+
+<div id="browse">
+<p><a href="#" onclick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th></th>
+    <th></th>
+    <th>Print ID</th>
+    <th>Object ID</th>
+    <th>Num Stock</th>
+    <th>Astronomer ID </th>
+    <th>Price</th>
+  </tr>
+  <tr>
+    <td><a href="#" onclick="updatePrint('this.PrintID')">Edit</a></td>
+    <td><a href="#" onclick="deletePrint('this.PrintID')">Delete</a></td>
+    <td align="center">1</td>
+    <td align="center">1</td>
+    <td align="center">2</td>
+    <td align="center">2</td>
+    <td align="center">25.00</td>
+  </tr>
+  <tr>
+    <td><a href="#" onclick="updatePrint('this.PrintID')">Edit</a></td>
+    <td><a href="#" onclick="deletePrint('this.PrintID')">Delete</a></td>
+    <td align="center">2</td>
+    <td align="center">2</td>
+    <td align="center">5</td>
+    <td align="center">2</td>
+    <td align="center">30.00</td>
+  </tr>  <tr>
+    <td><a href="#" onclick="updatePrint('this.PrintID')">Edit</a></td>
+    <td><a href="#" onclick="deletePrint('this.PrintID')">Delete</a></td>
+    <td align="center">5</td>
+    <td align="center">5</td>
+    <td align="center">30</td>
+    <td align="center">1</td>
+    <td align="center">60.00</td>
+  </tr>
+  <tr><td><a href="#" onclick="newPrint()">Add</a></td></tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addPrint">
+        <legend><strong>Add Print</strong></legend>
+          <fieldset class="fields">
+            <label> Object ID </label> <input type="text" name="ObjectID">
+            <p><label> Num Stock </label> <input type="text" name="NumStock"></p>
+            <label> astronomer ID</label> <select name="AstronomerID">
+              <option value ="1">1 - Chet Ubetchya</option>
+              <option value="2">2 - Timmy Turner</option>
+              <option value="3">3 - Cosmo</option>
+              <option value="4">4 - Wanda</option>
+              <option value="5">5 - Timmy's Dad</option>
+              </select>
+            <p><label> Price </label> <input type="text" name="Price"></p>
+      </fieldset>
+          <input class="btn" type="submit" id="addPrint" value="Add Print">
+          <input class="btn" type="button" value="Cancel" onclick="browsePrints()">
+	</form> 
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdatePrint">
+        <legend><strong>Update Print</strong></legend>
+        <fieldset class="fields">
+          <label>Print ID: </label> 1
+          <p><label> Object ID:</label> 1</p>
+          <p><label> Num Stock </label> <input type="text" name="NumStock"></p>
+          <label> astronomer ID</label> <select name="AstronomerID">
+            <option value ="1">1 - Chet Ubetchya</option>
+            <option value="2">2 - Timmy Turner</option>
+            <option value="3">3 - Cosmo</option>
+            <option value="4">4 - Wanda</option>
+            <option value="5">5 - Timmy's Dad</option>
+            </select>          <p><label> Price </label> <input type="text" name="Price"></p>
+        </fieldset>
+          <input class="btn" type="submit" id="UpdateSavePrint" value="Update Print">
+          <input class="btn" type="button" value="Cancel" onclick="browsePrints()">
+	</form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deletePrint">
+      <legend><strong>Delete Print</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="personPrintID" id="deletePrintID" value="1">
+          <label><strong>Print ID:</strong></label> 1
+            <label> <strong>Object ID:</strong> </label> 1
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeletePrint" value="Delete Print">
+          <input class="btn" type="button" value="Cancel" onclick="browsePrints()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>

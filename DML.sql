@@ -1,0 +1,91 @@
+/* ASTRONOMERS */
+
+-- Add astronomer to the club:
+
+INSERT INTO Astronomers (name, email, social_media_handle)
+VALUES (:name_input, :email_input, :social_media_handle_input);
+
+-- View all Astronomers
+
+SELECT * FROM Astronomers;
+
+--Update astronomer's information:
+UPDATE Astronomers SET name = :nameInput, email = :email_input, social_media_handle = :social_media_handle_input WHERE astronomer_id= :astronomer_id_from_the_update_form;
+
+
+--Remove astronomer from the club:
+
+DELETE FROM Astronomers WHERE id = :astronomer_id_selected_from_astronomer_list;
+
+
+/* CELESTIAL OBJECTS */
+
+-- Document new celestial object:
+
+INSERT INTO Celestial_Objects (astronomer_id, type, name)
+VALUES (:astronomer_id_selected_from_dropdown, :type_selected_from_dropdown, :name_input);
+
+-- View all celestial objects
+
+SELECT * FROM Celestial_Objects;
+
+-- Update celestial object:
+
+UPDATE Celestial_Objects SET name = :astronomer_id_selected_from_dropdown, type = :type_selected_from_dropdown, name = :name_input WHERE celestial_object_id= :object_id_from_the_update_form;
+
+-- Delete celestial object:
+
+DELETE FROM Celestial_Objects WHERE id = :object_id_selected_from_dropdown;
+
+/* CUSTOMERS */
+
+-- Create a new customer:
+
+INSERT INTO Customers (email, name, address1, address2, city, state, phone)
+VALUES (:email_input, :name_input, :address1_input, :address2_input, city_input, :state_selected_from_dropdown, :phone_input);
+List all customers:
+
+-- View customers
+
+SELECT * FROM Customers;
+
+-- Update customer:
+
+UPDATE Customers SET email = :email_input, name = :nameInput, address1 = :address1_input, address2 = address2_input, city = city_input, state = state_selected_from_dropdown, phone = phone_input  WHERE customer_id= :customer_id_from_the_update_form;
+
+
+-- Delete customer:
+
+DELETE FROM Customers WHERE id = :customer_id_selected_from_customer_list;
+
+/* PRINTS */
+
+-- Add prints to stock
+INSERT INTO Prints (num_stock, astronomer_id, object_id, price)
+VALUES (:num_stock_input, :astronomer_id_selected_from_dropdown, :object_id_selected_from_dropdown, :price_input);
+
+-- Updates a print in the database
+UPDATE Prints SET num_stock = :num_stock_input, price = price_input
+
+/* SALES */
+
+-- Create a new sale
+
+INSERT INTO Sales (customer_id, value, date)
+VALUES (:customer_id_input, :value_input, :date_input);
+
+-- View list of sales
+
+SELECT value, date FROM Sales;
+
+/* PRINT SALES to be displayed below Sales table on UI */
+
+-- view the intermediary table Print_Sales
+
+SELECT * FROM Print_Sales;
+
+/* ASTRONOMER SALES to be displayed below Sales table on UI */
+
+-- view the intermediary table Astronomer_Sales
+
+SELECT * FROM Astronomer_Sales

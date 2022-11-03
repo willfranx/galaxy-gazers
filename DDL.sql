@@ -15,8 +15,8 @@ DROP TABLE IF EXISTS Customers;
 
 CREATE TABLE Astronomers (
     astronomer_id int(11) UNIQUE NOT NULL AUTO_INCREMENT,
-    fname varchar(255) NOT NULL,
-    lname varchar(255) NOT NULL,
+    first_name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
     email varchar(255) NOT NULL,
     social_media_handle varchar(255),
     PRIMARY KEY (astronomer_id)
@@ -76,19 +76,20 @@ CREATE TABLE Sales (
 CREATE TABLE Customers (
     customer_id int(11) UNIQUE NOT NULL AUTO_INCREMENT,
     email varchar(255) UNIQUE DEFAULT NULL,
-    fname varchar(255),
-    lname varchar(255) DEFAULT NULL,
+    first_name varchar(255),
+    last_name varchar(255) DEFAULT NULL,
     address1 varchar(255),
     address2 varchar(255),
     city varchar(255),
     state varchar(255),
+    zip_code varchar(10),
     phone varchar(255),
     PRIMARY KEY (customer_id)
 );
 
 -- INSERT TABLE DATA --
 
-INSERT INTO Astronomers (fname, lname, email, social_media_handle)
+INSERT INTO Astronomers (first_name, last_name, email, social_media_handle)
 VALUES ("Chet","Ubetchya","ChetU@gmail.com","@chetbet"),
 ("Timmy","Turner","Timmy.Turner@hotmail.com","@timmyTbb"),
 ("Cosmo",NULL,"whatsausername@aol.com","@fairiesrock"),
@@ -104,11 +105,11 @@ VALUES (2,"Nebula","The Crab Nebula"),
 (1,"Planet","Saturn"),
 (1,"planet","Mercury");
 
-INSERT INTO Customers (email, fname, lname, address1, address2, city, state, phone)
-VALUES ("j_henderson@gmail.com","Jillian","Henderson","1234 Thumbwar Ave.",NULL,"Seattle","Washington","206-874-9801"),
-("mr-harris@outlook.com","Harris","Levy","24816 Squared St.",NULL,"Portland","Oregon","314-867-5309"),
-("yu.hussain@yahoo.com","Hussain","Yu","321 Countdown Blvd.",NULL,"Redmond","Washington","765-852-7412"),
-("harrygo@gmail.com","Harold","Goldshire","8990 Windy Rd.","Apt. 318","Seattle","Washington","206-985-6622");
+INSERT INTO Customers (email, first_name, last_name, address1, address2, city, state, zip_code, phone)
+VALUES ("j_henderson@gmail.com","Jillian","Henderson","1234 Thumbwar Ave.",NULL,"Seattle","Washington","98101","206-874-9801"),
+("mr-harris@outlook.com","Harris","Levy","24816 Squared St.",NULL,"Portland","Oregon","97203","314-867-5309"),
+("yu.hussain@yahoo.com","Hussain","Yu","321 Countdown Blvd.",NULL,"Redmond","Washington","98008","765-852-7412"),
+("harrygo@gmail.com","Harold","Goldshire","8990 Windy Rd.","Apt. 318","Seattle","Washington","98111","206-985-6622");
 
 INSERT INTO Prints (num_stock, astronomer_id, object_id, price)
 VALUES (2,2,1,25.00),

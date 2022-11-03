@@ -2,15 +2,15 @@
 
 -- Add astronomer to the club:
 
-INSERT INTO Astronomers (name, email, social_media_handle)
-VALUES (:name_input, :email_input, :social_media_handle_input);
+INSERT INTO Astronomers (first_name, last_name, email, social_media_handle)
+VALUES (:first_name_input, :last_name_input, :email_input, :social_media_handle_input);
 
 -- View all Astronomers
 
 SELECT * FROM Astronomers;
 
 --Update astronomer's information:
-UPDATE Astronomers SET name = :nameInput, email = :email_input, social_media_handle = :social_media_handle_input WHERE astronomer_id= :astronomer_id_from_the_update_form;
+UPDATE Astronomers SET first_name = :first_name_input, last_name = :last_name_input, email = :email_input, social_media_handle = :social_media_handle_input WHERE astronomer_id= :astronomer_id_from_the_update_form;
 
 
 --Remove astronomer from the club:
@@ -41,8 +41,8 @@ DELETE FROM Celestial_Objects WHERE id = :object_id_selected_from_dropdown;
 
 -- Create a new customer:
 
-INSERT INTO Customers (email, name, address1, address2, city, state, phone)
-VALUES (:email_input, :name_input, :address1_input, :address2_input, city_input, :state_selected_from_dropdown, :phone_input);
+INSERT INTO Customers (email, first_name, last_name, address1, address2, city, state, zip_code, phone)
+VALUES (:email_input, :first_name_input, :last_name_input :address1_input, :address2_input, city_input, :state_selected_from_dropdown, :zip_code_input, :phone_input);
 List all customers:
 
 -- View customers
@@ -51,7 +51,7 @@ SELECT * FROM Customers;
 
 -- Update customer:
 
-UPDATE Customers SET email = :email_input, name = :nameInput, address1 = :address1_input, address2 = address2_input, city = city_input, state = state_selected_from_dropdown, phone = phone_input  WHERE customer_id= :customer_id_from_the_update_form;
+UPDATE Customers SET email = :email_input, first_name = :first_nameInput, last_name = :last_name_input, address1 = :address1_input, address2 = :address2_input, city = :city_input, zip_code = :zip_code_input, state = :state_selected_from_dropdown, phone = :phone_input  WHERE customer_id= :customer_id_from_the_update_form;
 
 
 -- Delete customer:

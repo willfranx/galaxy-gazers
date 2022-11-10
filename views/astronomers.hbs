@@ -1,0 +1,26 @@
+<table>
+
+    <thead>
+
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each data}}
+        <tr>
+            <td>{{this.astronomer_id}}</td>
+            <td>{{this.first_name}}</td>
+            <td>{{this.last_name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.social_media}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

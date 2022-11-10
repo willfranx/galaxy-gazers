@@ -1,0 +1,27 @@
+{
+  "name": "galaxy-gazers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willfranx/galaxy-gazers.git"
+  },
+  "author": "William Franklin / Nathaniel DeShazer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willfranx/galaxy-gazers/issues"
+  },
+  "homepage": "https://github.com/willfranx/galaxy-gazers#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "forever": "^4.0.3",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.20"
+  }
+}

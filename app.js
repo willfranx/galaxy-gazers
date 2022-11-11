@@ -29,11 +29,25 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 
 app.get('/', function(req, res)
     {
-        let query1 = "SELECT * FROM Astronomer_Sales;";               // Define our query
+        // Declare Query 1
+    let query1 = "SELECT * FROM astronomer_sales;";
 
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+    // Query 2 is the same in both cases
+    let query2 = "SELECT * FROM astronomers;";
 
-            res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
+    // Run the 1st query
+    db.pool.query(query1, function(error, rows, fields){
+        
+        // Save the people
+        let sales = rows;
+        
+        // Run the second query
+        db.pool.query(query2, (error, rows, fields) => {
+            
+            // Save the planets
+            let astronomers = rows;
+            return res.render('index', {data: sales, astronomers: astronomers});
+        })         // Render the index.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                                         // received back from the query
 
@@ -43,10 +57,22 @@ app.post('/add-astronomer-sale-ajax', function(req, res)
     let data = req.body;
 
     // Capture NULL values
-    let social_media_handle = parseInt(data.social_media_handle);
-    if (isNaN(social_media_handle))
+    let astronomer_id = parseInt(data.astronomer_id);
+    if (isNaN(astronomer_id))
     {
-        social_media_handle = 'NULL'
+        astronomer_id = 'NULL'
+    }
+
+    let sale_id = parseInt(data.sale_id);
+    if (isNaN(astronomer_id))
+    {
+        sale_id = 'NULL'
+    }
+
+    let profit_due = parseInt(data.profit_due);
+    if (isNaN(profit_due))
+    {
+        astronomer_id = 'NULL'
     }
 
     // Create the query and run it on the database

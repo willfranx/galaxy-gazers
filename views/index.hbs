@@ -14,7 +14,6 @@
     </thead>
 
     <tbody>
-
         {{#each data}}
         <tr>
             <td>{{this.id}}</td>
@@ -31,7 +30,12 @@
 <p>To add a new person, please enter their information below and click 'Submit'!</p>
 <form id="add-astronomer-sale-form-ajax">
     <label for="input-astronomer-id">Astronomer ID: </label>
-    <input type="number" name="input-astronomer-id" id="input-astronomer-id">
+    <select name="input-astronomer" id="input-astronomer-ajax">
+        <option value="">Select an astronomer</option>
+        {{#each astronomers}}
+        <option value="{{this.id}}">{{this.first_name}}</option>
+        {{/each}}
+    </select>
     
     <label for="input-sale-id">Sale ID: </label>
     <input type="number" name="input-sale-id" id="input-sale-id">

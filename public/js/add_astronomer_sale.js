@@ -26,7 +26,7 @@ addAstronomerSaleForm.addEventListener("submit", function (e) {
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-astronomer-ajax", true);
+    xhttp.open("POST", "/add-astronomer-sale-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -73,18 +73,38 @@ addRowToTable = (data) => {
     let saleIDCell = document.createElement("TD");
     let profitDueCell = document.createElement("TD");
 
+    let deleteCell = document.createElement("TD");
+
     // Fill the cells with correct data
     idCell.innerText = newRow.id;
     astronomerIDCell.innerText = newRow.astronomer_id;
     saleIDCell.innerText = newRow.sale_id;
     profitDueCell.innerText = newRow.profit_due;
 
+    deleteCell = document.createElement("button");
+    deleteCell.innerHTML = "Delete";
+    deleteCell.onclick = function(){
+        deleteAstronomerSale(newRow.id);
+    };
+
     // Add the cells to the row 
     row.appendChild(idCell);
     row.appendChild(astronomerIDCell);
     row.appendChild(saleIDCell);
     row.appendChild(profitDueCell);
+    row.appendChild(deleteCell);
     
+    // Add a custom row attribute so the deleteRow function can find a newly added row
+    row.setAttribute('data-value', newRow.id);
+
     // Add the row to the table
     currentTable.appendChild(row);
+
+    // Find drop down menu, create a new option, fill data in the option (full name, id),
+    // then append option to drop down menu so newly created rows via ajax will be found in it without needing a refresh
+    let selectMenu = document.getElementById("mySelect");
+    let option = document.createElement("option");
+    option.text = newRow.sale_id;
+    option.value = newRow.id;
+    selectMenu.add(option);
 }

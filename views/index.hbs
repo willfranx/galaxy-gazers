@@ -1,5 +1,6 @@
 <!-- index.hbs -->
 <h1>Welcome to the Galaxy Gazers Home Page!</h1>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <table id="astronomer-sales-table">
 
@@ -10,6 +11,7 @@
                 {{@key}}
             </th>
             {{/each}}
+            <th>delete</th>
         </tr>
     </thead>
 
@@ -20,17 +22,20 @@
             <td>{{this.astronomer_id}}</td>
             <td>{{this.sale_id}}</td>
             <td>{{this.profit_due}}</td>
+            <td><button onclick="deleteAstronomerSale({{this.id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_person.js"></script>
+
 
 {{!-- Form to add a record to the table  --}}
 <h2>Adding Data with AJAX</h2>
 <p>To add a new person, please enter their information below and click 'Submit'!</p>
 <form id="add-astronomer-sale-form-ajax">
-    <label for="input-astronomer-id">Astronomer ID: </label>
-    <select name="input-astronomer" id="input-astronomer-ajax">
+    <label for="input-astronomer-id">Astronomer: </label>
+    <select name="input-astronomer-id" id="input-astronomer-sale-ajax">
         <option value="">Select an astronomer</option>
         {{#each astronomers}}
         <option value="{{this.id}}">{{this.first_name}}</option>
@@ -45,6 +50,41 @@
 
     <input type="submit">
 </form>
+
+<h2>Search Using an HTML Form</h2>
+<p>Search by sale id using the field below.</p>
+<form id="search-person-html" method='GET' action='/'>
+    <label for="input-sale-id">Search by Sale ID: </label>
+    <input type="number" name="sale_id" id="input-sale-id-html-search">
+    
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
+
+<h2>Updating Astronomer Sales Form</h2>
+<p>Select the sale ID from the dropdown and input the profit due.</p>
+<form id="update-astronomer-sales-form-ajax">
+
+    <label for="input-sale-id">Sale ID: </label>
+    <select name="input-sale-id" id="input-sale-id-update">
+        <option>Select a Sale ID</option>
+        {{#each astronomer_sale}}
+        <option value="{{this.id}}">{{this.sale_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-astronomer-id">Astronomer: </label>
+    <select name="input-astronomer-id" id="input-astronomer-id-update">
+        <option>Select an Astronomer</option>
+        {{#each astronomers}}
+        <option value="{{this.id}}">{{this.first_name}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_astronomer_sale.js"></script>
 
 {{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
 <script src="./js/add_astronomer_sale.js"></script>

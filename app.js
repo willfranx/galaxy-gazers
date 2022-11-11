@@ -29,8 +29,19 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 
 app.get('/', function(req, res)
     {
-        // Declare Query 1
-    let query1 = "SELECT * FROM astronomer_sales;";
+
+    let query1;
+
+    if (req.query.sale_id === undefined)
+    {
+        query1 = "SELECT * FROM astronomer_sales;";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    else
+    {
+        query1 = `SELECT * FROM astronomer_sales WHERE id LIKE "${req.query.sale_id}%"`
+    }
 
     // Query 2 is the same in both cases
     let query2 = "SELECT * FROM astronomers;";
@@ -89,7 +100,7 @@ app.post('/add-astronomer-sale-ajax', function(req, res)
         else
         {
             // If there was no error, perform a SELECT * on astronomers
-            query2 = `SELECT * FROM astronomer_sales;`;
+            query2 = `SELECT * FROM Astronomer_Sales;`;
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
@@ -108,6 +119,58 @@ app.post('/add-astronomer-sale-ajax', function(req, res)
         }
     })
 });
+
+app.delete('/delete-astronomer-sale-ajax/', function(req,res,next){
+    let data = req.body;
+    let astronomerSaleID = parseInt(data.id);
+    let deleteAstronomerSale= `DELETE FROM Astronomer_Sales WHERE id = ?`;
+  
+  
+          // Run the 1st query
+          db.pool.query(deleteAstronomerSale, [astronomerSaleID], function(error, rows, fields){
+              if (error) {
+  
+              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+              console.log(error);
+              res.sendStatus(400);
+              }
+  })});
+
+app.put('/put-astronomer-sale-ajax', function(req,res,next){
+let data = req.body;
+
+let sale_id = parseInt(data.sale_id);
+let astronomer_id = parseInt(data.astronomer_id);
+
+let queryUpdateAstronomerSale = `UPDATE astrnomer_sales SET astronomer_id = ? WHERE sale.id = ?`;
+let selectAstronomerID = `SELECT * FROM astronomer_sales WHERE astronomer_id = ?`
+
+        // Run the 1st query
+        db.pool.query(queryUpdateAstronomerSale, [sale_id, astronomer_id], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                // Run the second query
+                db.pool.query(selectAstronomerID, [homeworld], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+        })
+    });    
 
 /*
     LISTENER

@@ -1,11 +1,9 @@
 <!-- index.hbs -->
 <h1>Welcome to the Galaxy Gazers Home Page!</h1>
 
-<a target="blank" href="./astronomers">Astronomers</a>
-<table>
+<table id="astronomer-sales-table">
 
     <thead>
-
         <tr>
             {{#each data.[0]}}
             <th>
@@ -19,12 +17,30 @@
 
         {{#each data}}
         <tr>
+            <td>{{this.id}}</td>
             <td>{{this.astronomer_id}}</td>
-            <td>{{this.first_name}}</td>
-            <td>{{this.last_name}}</td>
-            <td>{{this.email}}</td>
-            <td>{{this.social_media}}</td>
+            <td>{{this.sale_id}}</td>
+            <td>{{this.profit_due}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding Data with AJAX</h2>
+<p>To add a new person, please enter their information below and click 'Submit'!</p>
+<form id="add-astronomer-sale-form-ajax">
+    <label for="input-astronomer-id">Astronomer ID: </label>
+    <input type="number" name="input-astronomer-id" id="input-astronomer-id">
+    
+    <label for="input-sale-id">Sale ID: </label>
+    <input type="number" name="input-sale-id" id="input-sale-id">
+
+    <label for="input-profit-due">Profit Due: </label>
+    <input type="number" name="input-profit-due" id="input-profit-due">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_astronomer_sale.js"></script>

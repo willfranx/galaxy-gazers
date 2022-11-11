@@ -29,13 +29,59 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 
 app.get('/', function(req, res)
     {
-        let query1 = "SELECT * FROM Astronomers;";               // Define our query
+        let query1 = "SELECT * FROM Astronomer_Sales;";               // Define our query
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
             res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                                         // received back from the query
+
+app.post('/add-astronomer-sale-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    let social_media_handle = parseInt(data.social_media_handle);
+    if (isNaN(social_media_handle))
+    {
+        social_media_handle = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due) VALUES ('${astronomer_id}', '${sale_id}', ${profit_due})`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on astronomers
+            query2 = `SELECT * FROM astronomer_sales;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 
 /*
     LISTENER

@@ -47,13 +47,30 @@ app.get('/astronomers', function(req, res)
 
 app.get('/astronomer_sales', function(req, res)
     {
-        let query1 = "SELECT * FROM Astronomer_Sales;";
+        let query1;
+
+        // If there is no query string, we just perform a basic SELECT
+        if (req.query.astronomer_id === undefined)
+        {
+            query1 = "SELECT * FROM Astronomer_Sales;";
+        }
+
+        // If there is a query string, we assume this is a search, and return desired results
+        else
+        {
+            query1 = `SELECT * FROM Astronomer_Sales WHERE astronomer_id LIKE "${req.query.astronomer_id}%"`
+        }
+
+        // Query 2 is the same in both cases
+        let query2 = "SELECT * FROM Astronomer_Sales;";
         db.pool.query(query1, function(error, rows, fields){
-            res.render('astronomer_sales', {data: rows});
+
+            let sales = rows
+            return res.render('astronomer_sales', {data: rows, sales: sales});
         })
     });
 
-app.post('/add-astronomer-sale-ajax', function(req, res) 
+app.post('/add-astronomer-sale', function(req, res) 
     {
         // Capture the incoming data and parse it back to a JS object
         let data = req.body;
@@ -74,13 +91,13 @@ app.post('/add-astronomer-sale-ajax', function(req, res)
         let profit_due = parseInt(data.profit_due);
         if (isNaN(profit_due))
         {
-            astronomer_id = 'NULL'
+            profit_due = 'NULL'
         }
     
         // Create the query and run it on the database
-        query1 = `INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due) VALUES ('${astronomer_id}', '${sale_id}', ${profit_due})`;
+        query1 = `INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due) VALUES ('${data['input-astronomer-id']}', '${data['input-sale-id']}', '${data['input-profit-due']}')`;
         db.pool.query(query1, function(error, rows, fields){
-    
+
             // Check to see if there was an error
             if (error) {
     
@@ -88,25 +105,12 @@ app.post('/add-astronomer-sale-ajax', function(req, res)
                 console.log(error)
                 res.sendStatus(400);
             }
+    
+            // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+            // presents it on the screen
             else
             {
-                // If there was no error, perform a SELECT * on astronomers
-                query2 = `SELECT * FROM Astronomer_Sales;`;
-                db.pool.query(query2, function(error, rows, fields){
-    
-                    // If there was an error on the second query, send a 400
-                    if (error) {
-                        
-                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                        console.log(error);
-                        res.sendStatus(400);
-                    }
-                    // If all went well, send the results of the query back.
-                    else
-                    {
-                        res.send(rows);
-                    }
-                })
+                res.redirect('/astronomer_sales');
             }
         })
     });

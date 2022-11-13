@@ -29,148 +29,119 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 
 app.get('/', function(req, res)
     {
+        res.render('index');                   
+    }); 
 
-    let query1;
-
-    if (req.query.sale_id === undefined)
+app.get('/index', function(req, res)
     {
-        query1 = "SELECT * FROM astronomer_sales;";
-    }
+        res.render('index');                   
+    });     
 
-    // If there is a query string, we assume this is a search, and return desired results
-    else
+app.get('/astronomers', function(req, res)
     {
-        query1 = `SELECT * FROM astronomer_sales WHERE id LIKE "${req.query.sale_id}%"`
-    }
+        let query1 = "SELECT * FROM Astronomers;";
+        db.pool.query(query1, function(error, rows, fields){
+            res.render('astronomers', {data: rows});
+        })
+    });
 
-    // Query 2 is the same in both cases
-    let query2 = "SELECT * FROM astronomers;";
-
-    // Run the 1st query
-    db.pool.query(query1, function(error, rows, fields){
-        
-        // Save the people
-        let sales = rows;
-        
-        // Run the second query
-        db.pool.query(query2, (error, rows, fields) => {
-            
-            // Save the planets
-            let astronomers = rows;
-            return res.render('index', {data: sales, astronomers: astronomers});
-        })         // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query
+app.get('/astronomer_sales', function(req, res)
+    {
+        let query1 = "SELECT * FROM Astronomer_Sales;";
+        db.pool.query(query1, function(error, rows, fields){
+            res.render('astronomer_sales', {data: rows});
+        })
+    });
 
 app.post('/add-astronomer-sale-ajax', function(req, res) 
-{
-    // Capture the incoming data and parse it back to a JS object
-    let data = req.body;
-
-    // Capture NULL values
-    let astronomer_id = parseInt(data.astronomer_id);
-    if (isNaN(astronomer_id))
     {
-        astronomer_id = 'NULL'
-    }
-
-    let sale_id = parseInt(data.sale_id);
-    if (isNaN(astronomer_id))
-    {
-        sale_id = 'NULL'
-    }
-
-    let profit_due = parseInt(data.profit_due);
-    if (isNaN(profit_due))
-    {
-        astronomer_id = 'NULL'
-    }
-
-    // Create the query and run it on the database
-    query1 = `INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due) VALUES ('${astronomer_id}', '${sale_id}', ${profit_due})`;
-    db.pool.query(query1, function(error, rows, fields){
-
-        // Check to see if there was an error
-        if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error)
-            res.sendStatus(400);
-        }
-        else
+        // Capture the incoming data and parse it back to a JS object
+        let data = req.body;
+    
+        // Capture NULL values
+        let astronomer_id = parseInt(data.astronomer_id);
+        if (isNaN(astronomer_id))
         {
-            // If there was no error, perform a SELECT * on astronomers
-            query2 = `SELECT * FROM Astronomer_Sales;`;
-            db.pool.query(query2, function(error, rows, fields){
-
-                // If there was an error on the second query, send a 400
-                if (error) {
-                    
-                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                    console.log(error);
-                    res.sendStatus(400);
-                }
-                // If all went well, send the results of the query back.
-                else
-                {
-                    res.send(rows);
-                }
-            })
+            astronomer_id = 'NULL'
         }
-    })
-});
-
-app.delete('/delete-astronomer-sale-ajax/', function(req,res,next){
-    let data = req.body;
-    let astronomerSaleID = parseInt(data.id);
-    let deleteAstronomerSale= `DELETE FROM Astronomer_Sales WHERE id = ?`;
-  
-  
-          // Run the 1st query
-          db.pool.query(deleteAstronomerSale, [astronomerSaleID], function(error, rows, fields){
-              if (error) {
-  
-              // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-              console.log(error);
-              res.sendStatus(400);
-              }
-  })});
-
-app.put('/put-astronomer-sale-ajax', function(req,res,next){
-let data = req.body;
-
-let sale_id = parseInt(data.sale_id);
-let astronomer_id = parseInt(data.astronomer_id);
-
-let queryUpdateAstronomerSale = `UPDATE astrnomer_sales SET astronomer_id = ? WHERE sale.id = ?`;
-let selectAstronomerID = `SELECT * FROM astronomer_sales WHERE astronomer_id = ?`
-
-        // Run the 1st query
-        db.pool.query(queryUpdateAstronomerSale, [sale_id, astronomer_id], function(error, rows, fields){
+    
+        let sale_id = parseInt(data.sale_id);
+        if (isNaN(astronomer_id))
+        {
+            sale_id = 'NULL'
+        }
+    
+        let profit_due = parseInt(data.profit_due);
+        if (isNaN(profit_due))
+        {
+            astronomer_id = 'NULL'
+        }
+    
+        // Create the query and run it on the database
+        query1 = `INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due) VALUES ('${astronomer_id}', '${sale_id}', ${profit_due})`;
+        db.pool.query(query1, function(error, rows, fields){
+    
+            // Check to see if there was an error
             if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-            console.log(error);
-            res.sendStatus(400);
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
             }
-
-            // If there was no error, we run our second query and return that data so we can use it to update the people's
-            // table on the front-end
             else
             {
-                // Run the second query
-                db.pool.query(selectAstronomerID, [homeworld], function(error, rows, fields) {
-
+                // If there was no error, perform a SELECT * on astronomers
+                query2 = `SELECT * FROM Astronomer_Sales;`;
+                db.pool.query(query2, function(error, rows, fields){
+    
+                    // If there was an error on the second query, send a 400
                     if (error) {
+                        
+                        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
                         console.log(error);
                         res.sendStatus(400);
-                    } else {
+                    }
+                    // If all went well, send the results of the query back.
+                    else
+                    {
                         res.send(rows);
                     }
                 })
             }
         })
-    });    
+    });
+
+app.get('/celestial_objects', function(req, res)
+    {
+        let query1 = "SELECT * FROM Celestial_Objects;";
+        db.pool.query(query1, function(error, rows, fields){
+            res.render('celestial_objects', {data: rows});
+        })
+    });
+
+app.get('/customers', function(req, res)
+    {
+        let query1 = "SELECT * FROM Customers;";
+        db.pool.query(query1, function(error, rows, fields){
+            res.render('customers', {data: rows});
+        })
+    });
+
+app.get('/prints', function(req, res)
+    {
+        let query1 = "SELECT * FROM Prints;";
+        db.pool.query(query1, function(error, rows, fields){
+            res.render('prints', {data: rows});
+        })
+    });
+
+app.get('/print_sales', function(req, res)
+    {
+        let query1 = "SELECT * FROM Print_Sales;";
+        db.pool.query(query1, function(error, rows, fields){
+            res.render('print_sales', {data: rows});
+        })
+    });
 
 /*
     LISTENER

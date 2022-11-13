@@ -12,13 +12,17 @@
     <tbody>
         {{#each data}}
         <tr>
-            <td>{{this.astronomer_id}}</td>
+            <td>{{this.customer_id}}</td>
+            <td>{{this.email}}</td>
             <td>{{this.first_name}}</td>
             <td>{{this.last_name}}</td>
-            <td>{{this.email}}</td>
-            <td>{{this.social_media_handle}}</td>
+            <td>{{this.address1}}</td>
+            <td>{{this.address2}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.state}}</td>
+            <td>{{this.zip_code}}</td>
+            <td>{{this.phone}}</td>
         </tr>
         {{/each}}
     </tbody>
 </table>
-

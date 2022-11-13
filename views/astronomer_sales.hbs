@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<table id="astronomer-sales-table">
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.astronomer_id}}</td>
+            <td>{{this.sale_id}}</td>
+            <td>{{this.profit_due}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Add Astronomer Sale:</h2>
+<p>To add a new Astronomer Sale, please enter the information below and click 'Submit'!</p>
+<form id="add-astrnomer-sale-form-ajax">
+    <label for="input-astronomer-id">Astronomer ID:</label>
+    <input type="number" name="input-astronomer-id" id="input-astronomer-id">
+    
+    <label for="input-sale-id">Sale ID: </label>
+    <input type="number" name="input-sale-id" id="input-sale-id">
+
+    <label for="input-profit-due">Profit Due:</label>
+    <input type="number" name="input-profit-due" id="input-profit-due">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_astronomer_sale.js"></script>

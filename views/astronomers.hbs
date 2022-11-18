@@ -1,4 +1,9 @@
-<table>
+<h1>Browse Astronomers</h1>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="./js/delete_astronomer.js"></script>
+
+<table id="astronomers-table">
     <thead>
         <tr>
             {{#each data.[0]}}
@@ -11,14 +16,42 @@
 
     <tbody>
         {{#each data}}
-        <tr>
+        <tr data-value={{this.astronomer_id}}>
             <td>{{this.astronomer_id}}</td>
             <td>{{this.first_name}}</td>
             <td>{{this.last_name}}</td>
             <td>{{this.email}}</td>
             <td>{{this.social_media_handle}}</td>
+            <td><button onclick="deleteAstronomer({{this.astronomer_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
+<h2>Add Astronomer:</h2>
+<p>To add a new Astronomer, please enter the information below and click 'Submit'!</p>
+<form id="add-astronomer-form" method="POST" action="/add-astronomer">
+    <label for="input-first-name">First name:</label>
+    <input type="text" name="input-first-name" id="input-first-name">
+
+    <label for="input-last-name">Last name:</label>
+    <input type="text" name="input-last-name" id="input-last-name">
+
+    <label for="input-email">Email:</label>
+    <input type="text" name="input-email" id="input-email">
+
+    <label for="input-social-media-handle">Social Media Handle:</label>
+    <input type="text" name="input-social-media-handle" id="input-social-media-handle">
+
+    <input type="submit">
+</form>
+
+<h2>Search Astronomer Sales</h2>
+<p>Search by first name using the field below.</p>
+<form id="search-astronomers-html" method='GET' action='/astronomers'>
+    <label for="input-first-name">Search by Astronomer ID: </label>
+    <input type="text" name="first_name" id="input-astronomer-html-search">
+    
+    <input type="submit">
+    <a href='/astronomers'><button>Reset</button></a>
+</form>

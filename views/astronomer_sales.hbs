@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <table id="astronomer-sales-table">
     <thead>
         <tr>
@@ -13,15 +14,17 @@
 
     <tbody>
         {{#each data}}
-        <tr>
+        <tr data-value={{this.id}}>
             <td>{{this.id}}</td>
             <td>{{this.astronomer_id}}</td>
             <td>{{this.sale_id}}</td>
             <td>{{this.profit_due}}</td>
+            <td><button onclick="deleteAstronomerSale({{this.id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="../public/js/delete_astronomer_sale.js"></script>
 
 <h2>Add Astronomer Sale:</h2>
 <p>To add a new Astronomer Sale, please enter the information below and click 'Submit'!</p>

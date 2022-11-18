@@ -1,8 +1,8 @@
-function deleteAstronomerSale(astronomerSaleID) {
+function deleteAstronomer(astronomerID) {
   // Put our data we want to send in a javascript object
-  let link = '/delete-astronomer-sale-ajax';
+  let link = '/delete-astronomer-ajax/';
   let data = {
-    id: astronomerSaleID
+    id: astronomerID
   };
 
   $.ajax({
@@ -11,16 +11,16 @@ function deleteAstronomerSale(astronomerSaleID) {
     data: JSON.stringify(data),
     contentType: "application/json; charset=utf-8",
     success: function(result) {
-      deleteRow(astronomerSaleID);
+      deleteRow(astronomerID);
     }
   });
 }
 
 
-function deleteRow(astronomerSaleID){
-  let table = document.getElementById("astronomer-sales-table");
+function deleteRow(astronomerID){
+  let table = document.getElementById("astronomers-table");
   for (let i = 0, row; row = table.rows[i]; i++) {
-     if (table.rows[i].getAttribute("data-value") == astronomerSaleID) {
+     if (table.rows[i].getAttribute("data-value") == astronomerID) {
           table.deleteRow(i);
           break;
      }

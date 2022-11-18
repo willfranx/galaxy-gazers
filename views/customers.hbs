@@ -26,3 +26,47 @@
         {{/each}}
     </tbody>
 </table>
+
+<h2>Add Customer:</h2>
+<p>To add a new Customer, please enter the information below and click 'Submit'!</p>
+<form id="add-customer-form" method="POST" action="/add-customer">
+    
+    <label for="input-email">Email:</label>
+    <input type="text" name="input-email" id="input-email">
+
+    <label for="input-first-name">First Name:</label>
+    <input type="text" name="input-first-name" id="input-first-name">
+    
+    <label for="input-last-name">Last Name:</label>
+    <input type="text" name="input-last-name" id="input-last-name">
+
+    <label for="input-address-1">Address 1:</label>
+    <input type="text" name="input-address-1" id="input-address-1">
+
+    <label for="input-address-2">Address 2:</label>
+    <input type="text" name="input-address-2" id="input-address-2">
+
+    <label for="input-city">City:</label>
+    <input type="text" name="input-city" id="input-city">
+    
+    <label for="input-state">State:</label>
+    <input type="text" name="input-state" id="input-state">
+
+    <label for="input-zip-code">Zip Code:</label>
+    <input type="text" name="input-zip-code" id="input-zip-code">
+
+    <label for="input-phone">Phone:</label>
+    <input type="text" name="input-phone" id="input-phone">
+
+    <input type="submit">
+</form>
+
+<h2>Search Customers</h2>
+<p>Search by last name using the field below.</p>
+<form id="search-customers-html" method='GET' action='/customers'>
+    <label for="input-customers">Search by Last Name: </label>
+    <input type="text" name="last_name" id="input-customers-html-search">
+    
+    <input type="submit">
+    <a href='/customers'><button>Reset</button></a>
+</form>

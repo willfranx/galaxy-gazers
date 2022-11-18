@@ -214,9 +214,26 @@ app.delete('/delete-astronomer-sale-ajax/', function(req,res,next){
 
 app.get('/celestial_objects', function(req, res)
     {
-        let query1 = "SELECT * FROM Celestial_Objects;";
+        let query1;
+
+        // If there is no query string, we just perform a basic SELECT
+        if (req.query.object_name === undefined)
+        {
+            query1 = "SELECT * FROM Celestial_Objects;";
+        }
+
+        // If there is a query string, we assume this is a search, and return desired results
+        else
+        {
+            query1 = `SELECT * FROM Celestial_Objects WHERE object_name LIKE "${req.query.object_name}%"`
+        }
+
+        // Query 2 is the same in both cases
+        let query2 = "SELECT * FROM Celestial_Objects;";
         db.pool.query(query1, function(error, rows, fields){
-            res.render('celestial_objects', {data: rows});
+
+            let sales = rows
+            return res.render('celestial_objects', {data: rows, sales: sales});
         })
     });
 
@@ -226,26 +243,20 @@ app.post('/add-celestial-object', function(req, res)
     let data = req.body;
 
     // Capture NULL values
-    let astronomer_id = parseInt(data.astronomer_id);
-    if (isNaN(astronomer_id))
+    let object_type = parseInt(data.object_type);
+    if (isNaN(object_type))
     {
-        astronomer_id = 'NULL'
+        object_type = 'NULL'
     }
 
-    let sale_id = parseInt(data.sale_id);
-    if (isNaN(astronomer_id))
+    let object_name = parseInt(data.object_name);
+    if (isNaN(object_name))
     {
-        sale_id = 'NULL'
-    }
-
-    let profit_due = parseInt(data.profit_due);
-    if (isNaN(profit_due))
-    {
-        profit_due = 'NULL'
+        object_name = 'NULL'
     }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due) VALUES ('${data['input-astronomer-id']}', '${data['input-sale-id']}', '${data['input-profit-due']}')`;
+    query1 = `INSERT INTO Celestial_Objects (astronomer_id, object_type, object_name) VALUES ('${data['input-astronomer-id']}', '${data['input-object-type']}', '${data['input-object-name']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -260,30 +271,173 @@ app.post('/add-celestial-object', function(req, res)
         // presents it on the screen
         else
         {
-            res.redirect('/astronomer_sales');
+            res.redirect('/celestial_objects');
         }
     })
 });
 
 // CUSTOMERS
 
-    app.get('/customers', function(req, res)
+app.get('/customers', function(req, res)
+{
+    let query1;
+
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.last_name === undefined)
     {
-        let query1 = "SELECT * FROM Customers;";
-        db.pool.query(query1, function(error, rows, fields){
-            res.render('customers', {data: rows});
-        })
-    });
+        query1 = "SELECT * FROM Customers;";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    else
+    {
+        query1 = `SELECT * FROM Customers WHERE last_name LIKE "${req.query.last_name}%"`
+    }
+
+    // Query 2 is the same in both cases
+    let query2 = "SELECT * FROM Customers;";
+    db.pool.query(query1, function(error, rows, fields){
+
+        let sales = rows
+        return res.render('customers', {data: rows, sales: sales});
+    })
+});
+
+app.post('/add-customer', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    let email = parseInt(data.email);
+    if (isNaN(email))
+    {
+        email = 'NULL'
+    }
+
+    let first_name = parseInt(data.first_name);
+    if (isNaN(first_name))
+    {
+        first_name = 'NULL'
+    }
+
+    let last_name = parseInt(data.last_name);
+    if (isNaN(last_name))
+    {
+        last_name = 'NULL'
+    }
+
+    let address1 = parseInt(data.address1);
+    if (isNaN(address1))
+    {
+        address1 = 'NULL'
+    }
+
+    let address2 = parseInt(data.address2);
+    if (isNaN(address2))
+    {
+        address2 = 'NULL'
+    }
+
+    let city = parseInt(data.city);
+    if (isNaN(city))
+    {
+        city = 'NULL'
+    }
+
+    let state = parseInt(data.state);
+    if (isNaN(state))
+    {
+        state = 'NULL'
+    }
+
+    let zip_code = parseInt(data.zip_code);
+    if (isNaN(zip_code))
+    {
+        zip_code = 'NULL'
+    }
+
+    let phone = parseInt(data.phone);
+    if (isNaN(phone))
+    {
+        phone = 'NULL'
+    }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Customers (email, first_name, last_name, address1, address2, city, state, zip_code, phone) VALUES ('${data['input-email']}', '${data['input-first-name']}', '${data['input-last-name']}', '${data['input-address1']}', '${data['input-address2']}', '${data['input-city']}', '${data['input-state']}', '${data['input-zip-code']}', '${data['input-phone']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/customers');
+        }
+    })
+});
 
 //PRINTS
 
 app.get('/prints', function(req, res)
     {
-        let query1 = "SELECT * FROM Prints;";
-        db.pool.query(query1, function(error, rows, fields){
-            res.render('prints', {data: rows});
-        })
-    });
+        let query1;
+
+    // If there is no query string, we just perform a basic SELECT
+    if (req.query.print_id === undefined)
+    {
+        query1 = "SELECT * FROM Prints;";
+    }
+
+    // If there is a query string, we assume this is a search, and return desired results
+    else
+    {
+        query1 = `SELECT * FROM Prints WHERE print_id LIKE "${req.query.print_id}%"`
+    }
+
+    // Query 2 is the same in both cases
+    let query2 = "SELECT * FROM Prints;";
+    db.pool.query(query1, function(error, rows, fields){
+
+        let sales = rows
+        return res.render('prints', {data: rows, sales: sales});
+    })
+});
+
+app.post('/add-print', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Prints (num_stock, astronomer_id, object_id, price) VALUES ('${data['input-num-stock']}', '${data['input-astronomer-id']}', '${data['input-object-id']}', '${data['input-price']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/prints');
+        }
+    })
+});
 
 app.get('/print_sales', function(req, res)
     {

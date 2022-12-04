@@ -31,10 +31,9 @@ nav {
 
 main {
     justify-content: left;
-    padding: 20px;
+    padding: 20px 20px;
     background-color: white;
     margin: 25px 200px 25px 200px;
-    padding: 0px 0px 25px 0px;
     color: black;
 }
 

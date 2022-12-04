@@ -1,0 +1,41 @@
+body, html {
+    height: 100%;
+    color: #777;
+    line-height: 1.8;
+}
+
+body {
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/e/e3/The_Horsehead_Nebula_IC434.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100%;
+}
+
+h1, footer {
+    color: lightgreen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: white;
+    color: black;
+}
+
+main {
+    justify-content: left;
+    padding: 20px;
+    background-color: white;
+    margin: 25px 200px 25px 200px;
+    padding: 0px 0px 25px 0px;
+    color: black;
+}
+
+

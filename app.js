@@ -92,15 +92,41 @@ app.post('/add-astronomer', function(req, res)
     })
 });
 
-app.delete('/delete-astronomer-ajax/', function(req,res,next){
+app.delete('/delete-astronomer/', function(req,res,next){
     let data = req.body;
     let astronomerID = parseInt(data.astronomer_id);
-    let deleteAstronomerSale = `DELETE FROM Astronomer_Sales WHERE astronomer_id = ?`;
-    let deleteAstronomer= `DELETE FROM Astronomers WHERE astronomer_id = ?`;
+    let deleteAstronomer = `DELETE FROM Astronomers WHERE astronomer_id = ?`;
+
+        db.pool.query(deleteAstronomer, [astronomerID], function(error, rows, fields){
+            if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            else
+            {
+            res.sendStatus(204);
+            }
+       
+})});
+
+app.put('/put-astronomer', function(req,res,next){
+    let data = req.body;
   
+    let astronomerID = parseInt(data.astronomer_id);
+    let firstName = data.first_name;
+    let lastName = data.last_name;
+    let email = data.email
+    let socialMediaHandle = data.social_media_handle
+    
+    let  updateQuery = `UPDATE Astronomers SET first_name = ?, last_name = ?, email = ?, social_media_handle = ? WHERE astronomer_id= ?`;
+
+    let  selectQuery = `SELECT * FROM Astronomers WHERE astronomer_id = ?`;
+
   
-          // Run the 1st query
-          db.pool.query(deleteAstronomerSale, [astronomerID], function(error, rows, fields){
+            // Run the 1st query
+          db.pool.query(updateQuery, [firstName, lastName, email, socialMediaHandle, astronomerID], function(error, rows, fields){
               if (error) {
   
               // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
@@ -108,20 +134,25 @@ app.delete('/delete-astronomer-ajax/', function(req,res,next){
               res.sendStatus(400);
               }
   
+              // If there was no error, we run our second query and return that data so we can use it to update the people's
+              // table on the front-end
+  
               else
               {
                   // Run the second query
-                  db.pool.query(deleteAstronomer, [astronomerID], function(error, rows, fields) {
-  
+                  db.pool.query(selectQuery, [astronomerID], function(error, rows, fields) {
+          
                       if (error) {
                           console.log(error);
                           res.sendStatus(400);
                       } else {
-                          res.sendStatus(204);
+                          console.log(rows);
+                          res.send(rows);
                       }
                   })
+  
               }
-  })});
+})});
 
 //ASTRONOMER SALES
 app.get('/astronomer_sales', function(req, res)

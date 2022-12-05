@@ -37,17 +37,18 @@ app.get('/index', function(req, res)
     });     
 
 //ASTRONOMERS
+
 app.get('/astronomers', function(req, res)
     {
         let query1;
 
-        // If there is no query string, we just perform a basic SELECT
+        // Base Table
         if (req.query.first_name === undefined)
         {
             query1 = "SELECT * FROM Astronomers;";
         }
 
-        // If there is a query string, we assume this is a search, and return desired results
+        // Search Results Table
         else
         {
             query1 = `SELECT * FROM Astronomers 
@@ -57,8 +58,6 @@ app.get('/astronomers', function(req, res)
             OR social_media_handle LIKE "${req.query.first_name}%"`
         }
 
-        // Query 2 is the same in both cases
-        let query2 = "SELECT * FROM Astronomers;";
         db.pool.query(query1, function(error, rows, fields){
 
             let sales = rows

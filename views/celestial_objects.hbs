@@ -1,38 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celestial Objects</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="./js/update_astronomer.js"></script>
-    <link rel="stylesheet" href="./css/style.css">
-
-
-    <nav>
-        <a href="/index">Home</a> |
-        <a href="/astronomers">Astronomers</a> |
-        <a href="/celestial_objects">Celestial Objects</a> |
-        <a href="/customers">Customers</a> |
-        <a href="/prints">Prints</a> |
-        <a href="/print_sales">Print Sales</a> |
-        <a href="/astronomer_sales">Astronomer Sales</a>
-    </nav>
+    <h1>Celestial Objects</h1>
 </head>
 
 <body>
-<h1>Celestial Objects</h1>
+
 
 <main>
 <table>
     <thead>
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>ID</th>
+            <th>Astronomer ID</th>
+            <th>Object Type</th>
+            <th>Object Name</th>
         </tr>
     </thead>
 
@@ -73,16 +53,14 @@
 <form id="search-celestial-objects-html" method='GET' action='/celestial_objects'>
     <label for="input-object-name">Search by Object Name: </label>
     <input type="text" name="object_name" id="input-celestial-objects-html-search">
-    
     <input type="submit">
     <a href='/celestial_objects'><button>Reset</button></a>
 </form>
 </main>
 
-<div> <!--Footer -->
+<div> 
   <footer>
     Created by William Franklin and Nathaniel DeShazer
   </footer>
 <div>
-
 </body>

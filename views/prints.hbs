@@ -2,22 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prints</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="./js/update_astronomer.js"></script>
-    <link rel="stylesheet" href="./css/style.css">
-
-    <nav>
-        <a href="/index">Home</a> |
-        <a href="/astronomers">Astronomers</a> |
-        <a href="/celestial_objects">Celestial Objects</a> |
-        <a href="/customers">Customers</a> |
-        <a href="/prints">Prints</a> |
-        <a href="/print_sales">Print Sales</a> |
-        <a href="/astronomer_sales">Astronomer Sales</a>
-    </nav>
 </head>
 
 <body>
@@ -27,11 +12,11 @@
 <table>
     <thead>
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>Print ID</th>
+            <th>Astronmer ID</th>
+            <th>Object ID</th>
+            <th>Num in Stock</th>
+            <th>Price per Print</th>
         </tr>
     </thead>
 
@@ -39,9 +24,9 @@
         {{#each data}}
         <tr>
             <td>{{this.print_id}}</td>
-            <td>{{this.num_stock}}</td>
             <td>{{this.astronomer_id}}</td>
             <td>{{this.object_id}}</td>
+            <td>{{this.num_stock}}</td>
             <td>{{this.price}}</td>
         </tr>
         {{/each}}

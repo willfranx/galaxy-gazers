@@ -28,7 +28,7 @@ CREATE TABLE Celestial_Objects (
     object_type varchar(255) DEFAULT NULL,
     object_name varchar(255) DEFAULT NULL,
     PRIMARY KEY (object_id),
-    FOREIGN KEY (astronomer_id) REFERENCES Astronomers (astronomer_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (astronomer_id) REFERENCES Astronomers (astronomer_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Prints (
@@ -38,8 +38,8 @@ CREATE TABLE Prints (
     object_id int(11) NOT NULL,
     price decimal(9,2) DEFAULT NULL,
     PRIMARY KEY (print_id),
-    FOREIGN KEY (astronomer_id) REFERENCES Astronomers (astronomer_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    FOREIGN KEY (object_id) REFERENCES Celestial_Objects (object_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (astronomer_id) REFERENCES Astronomers (astronomer_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (object_id) REFERENCES Celestial_Objects (object_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Print_Sales (
@@ -50,8 +50,8 @@ CREATE TABLE Print_Sales (
     print_price decimal(9,2) DEFAULT NULL,
     line_total decimal(9,2) DEFAULT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (print_id) REFERENCES Prints (print_id) ON DELETE CASCADE,
-    FOREIGN KEY (sale_id) REFERENCES Sales (sale_id) ON DELETE CASCADE
+    FOREIGN KEY (print_id) REFERENCES Prints (print_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (sale_id) REFERENCES Sales (sale_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Astronomer_Sales (
@@ -60,8 +60,8 @@ CREATE TABLE Astronomer_Sales (
   sale_id int(11) DEFAULT NULL,
   profit_due decimal(9,2) DEFAULT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (astronomer_id) REFERENCES Astronomers (astronomer_id) ON DELETE CASCADE,
-  FOREIGN KEY (sale_id) REFERENCES Sales (sale_id) ON DELETE CASCADE
+  FOREIGN KEY (astronomer_id) REFERENCES Astronomers (astronomer_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (sale_id) REFERENCES Sales (sale_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Sales (
@@ -70,7 +70,7 @@ CREATE TABLE Sales (
     value decimal(9,2) NOT NULL,
     date date NOT NULL,
     PRIMARY KEY (sale_id),
-    FOREIGN KEY (customer_id) REFERENCES Customers (customer_id)
+    FOREIGN KEY (customer_id) REFERENCES Customers (customer_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Customers (

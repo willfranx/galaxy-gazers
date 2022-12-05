@@ -1,41 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astronomers</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="./js/update_astronomer.js"></script>
-    <link rel="stylesheet" href="./css/style.css">
-
-    <nav>
-        <a href="/index">Home</a> |
-        <a href="/astronomers">Astronomers</a> |
-        <a href="/celestial_objects">Celestial Objects</a> |
-        <a href="/customers">Customers</a> |
-        <a href="/prints">Prints</a> |
-        <a href="/print_sales">Print Sales</a> |
-        <a href="/astronomer_sales">Astronomer Sales</a>
-    </nav>
+    <h1>Astronomers</h1>
 </head>
 
 <body>
 
-<h1>Astronomers</h1>
-
 <main>
 <table id=:"astronomers-table">
     <thead>
-
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            <th>Social Media Handle</th>
             <th>delete</th>
         </tr>
     </thead>
@@ -55,8 +32,18 @@
 </table>
 <script src="./js/delete_astronomer.js"></script>
 
-<h2>Add Astronomer:</h2>
-<p>To add a new Astronomer, please enter the information below and click 'Submit'!</p>
+<h2>Search for an Astronmer</h2>
+<p>Search via keyword in First Name, Last Name, Email, or Social Media</p>
+<form id="search-astronomers-html" method='GET' action='/astronomers'>
+    <label for="input-first-name">Search: </label>
+    <input type="text" name="first_name" id="input-astronomer-html-search">
+    
+    <input type="submit">
+    <a href='/astronomers'><button>Reset</button></a>
+</form>
+
+<h2>Add a New Astronomer:</h2>
+<p>Fill out the new the information below and click 'Submit'!</p>
 <form id="add-astronomer-form" method="POST" action="/add-astronomer">
     <label for="input-first-name">First name:</label>
     <input type="text" name="input-first-name" id="input-first-name">
@@ -71,16 +58,6 @@
     <input type="text" name="input-social-media-handle" id="input-social-media-handle">
 
     <input type="submit">
-</form>
-
-<h2>Search Astronomer Sales</h2>
-<p>Search by first name using the field below.</p>
-<form id="search-astronomers-html" method='GET' action='/astronomers'>
-    <label for="input-first-name">Search by Astronomer ID: </label>
-    <input type="text" name="first_name" id="input-astronomer-html-search">
-    
-    <input type="submit">
-    <a href='/astronomers'><button>Reset</button></a>
 </form>
 
 <h2>Update an Astronomer</h2>
@@ -109,12 +86,9 @@
     
     <input type="submit">
 </form>
+<script src="./js/update_astronomer.js"></script>
 </main>
 
-<div> <!--Footer -->
-  <footer>
-    Created by William Franklin and Nathaniel DeShazer
-  </footer>
-<div>
+
 
 </body>

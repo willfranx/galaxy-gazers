@@ -1,34 +1,21 @@
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customers</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="./js/update_astronomer.js"></script>
-    <link rel="stylesheet" href="./css/style.css">
-
-    <nav>
-        <a href="/index">Home</a> |
-        <a href="/astronomers">Astronomers</a> |
-        <a href="/celestial_objects">Celestial Objects</a> |
-        <a href="/customers">Customers</a> |
-        <a href="/prints">Prints</a> |
-        <a href="/print_sales">Print Sales</a> |
-        <a href="/astronomer_sales">Astronomer Sales</a>
-    </nav>
+    <h1>Customers</h1>
 </head>
-
 <body>
-<h1>Customers</h1>
-
 <main>
 <table>
     <thead>
         <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
+            <th>Customer ID</th>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address 1</th>
+            <th>Address 2</th>
+            <th>City</th>
+            <th>State</th>
+            <th>ZIP</th>
+            <th>Phone</th>
         </tr>
     </thead>
 

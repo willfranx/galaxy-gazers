@@ -241,65 +241,33 @@ app.get('/astronomer_sales', function(req, res)
     });
 
 app.post('/add-astronomer-sale', function(req, res) 
-    {
-        // Capture the incoming data and parse it back to a JS object
-        let data = req.body;
-    
-        // Capture NULL values
-        let astronomer_id = parseInt(data.astronomer_id);
-        if (isNaN(astronomer_id))
-        {
-            astronomer_id = 'NULL'
-        }
-    
-        let sale_id = parseInt(data.sale_id);
-        if (isNaN(astronomer_id))
-        {
-            sale_id = 'NULL'
-        }
-    
-        let profit_due = parseInt(data.profit_due);
-        if (isNaN(profit_due))
-        {
-            profit_due = 'NULL'
-        }
-    
-        // Create the query and run it on the database
-        query1 = `INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due) VALUES ('${data['input-astronomer-id']}', '${data['input-sale-id']}', '${data['input-profit-due']}')`;
-        db.pool.query(query1, function(error, rows, fields){
-
-            // Check to see if there was an error
-            if (error) {
-    
-                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                console.log(error)
-                res.sendStatus(400);
-            }
-    
-            // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-            // presents it on the screen
-            else
-            {
-                res.redirect('/astronomer_sales');
-            }
-        })
-    });
-
-app.delete('/delete-astronomer-sale-ajax/', function(req,res,next){
+{
+    // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-    let astronomerSaleID = parseInt(data.id);
-    let deleteAstronomerSale= `DELETE FROM Astronomer_Sales, Astronomers, Sales WHERE id = ?`;
+
+    // Capture NULL values
     
-        // Run the 1st query
-        db.pool.query(deleteAstronomerSale, [astronomerSaleID], function(error, rows, fields){
-            if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.sendStatus(204);
-                }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due) VALUES ('${data['input-astronomer-id']}', '${data['input-sale-id']}', '${data['input-profit-due']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            res.redirect('/astronomer_sales');
+        }
     })
 });
+    
+
+
 
 // CELESTIAL OBJECTS
 

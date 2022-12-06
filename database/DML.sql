@@ -89,3 +89,6 @@ SELECT * FROM Print_Sales;
 -- view the intermediary table Astronomer_Sales
 
 SELECT * FROM Astronomer_Sales
+
+INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due)
+VALUES (:astronomer-id-input, :sale-input, :profit-due-input);

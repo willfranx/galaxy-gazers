@@ -1,28 +1,41 @@
 function deleteAstronomerSale(astronomerSaleID) {
-  // Put our data we want to send in a javascript object
-  let link = '/delete-astronomer-sale-ajax';
+
   let data = {
-    id: astronomerSaleID
+      id: astronomerSaleID
   };
 
-  $.ajax({
-    url: link,
-    type: 'DELETE',
-    data: JSON.stringify(data),
-    contentType: "application/json; charset=utf-8",
-    success: function(result) {
-      deleteRow(astronomerSaleID);
-    }
-  });
+  // Setup AJAX request
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("DELETE", "/delete-astronomer-sale/", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+
+
+  xhttp.onreadystatechange = () => {
+      if (xhttp.readyState == 4 && xhttp.status == 204) {
+
+        deleteRow(astronomerSaleID);
+        
+
+      }
+      else if (xhttp.readyState == 4 && xhttp.status != 204) {
+          console.log("There was an error with the input.")
+      }
+  }
+  window.location.reload();
+  xhttp.send(JSON.stringify(data));
 }
 
 
 function deleteRow(astronomerSaleID){
+
   let table = document.getElementById("astronomer-sales-table");
   for (let i = 0, row; row = table.rows[i]; i++) {
+
      if (table.rows[i].getAttribute("data-value") == astronomerSaleID) {
           table.deleteRow(i);
+          
           break;
      }
   }
+
 }

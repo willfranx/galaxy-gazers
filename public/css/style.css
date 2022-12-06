@@ -18,9 +18,12 @@ body {
 table, th, td {
     border: 1px solid;
     border-collapse: collapse;
+    padding: 10px;
 }
 table td {
     text-align: left;
+    vertical-align: bottom;
+    height: 30px;
 }
 
 h1, footer {
@@ -35,9 +38,15 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    background-color: white;
+    background-color: lightgreen;
     color: black;
 }
+
+a:hover {
+    background-color: white;
+}
+
+
 
 main {
     justify-content: left;

@@ -1,3 +1,10 @@
+/*CITATION:
+DATE: 12/5/2022
+Adapted: nodejs-starter-app
+SCOPE: module
+URL: github/osu-cs340-ecampus/nodejs-starter-app
+*/
+
 // Get the objects we need to modify
 let updateAstronomerForm = document.getElementById('update-astronomer-form');
 

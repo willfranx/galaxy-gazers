@@ -1,3 +1,9 @@
+/*CITATION:
+DATE: 12/5/2022
+Adapted: nodejs-starter-app
+SCOPE: module
+URL: github/osu-cs340-ecampus/nodejs-starter-app
+*/
 // ./database/db-connector.js
 
 // Get an instance of mysql we can use in the app

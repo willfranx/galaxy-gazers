@@ -1,3 +1,10 @@
+/*CITATION:
+DATE: 12/5/2022
+Adapted: nodejs-starter-app
+SCOPE: module
+URL: github/osu-cs340-ecampus/nodejs-starter-app
+*/
+
 function deletePrintSale(printSaleID) {
     // Put our data we want to send in a javascript object
     let data = {

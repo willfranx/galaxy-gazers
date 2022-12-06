@@ -1,9 +1,7 @@
 <head>
     <h1>Astronomer Sales</h1>
 </head>
-
 <body>
-
 
 <main>
 <table id="astronomer-sales-table">
@@ -31,6 +29,18 @@
 </table>
 <script src=".js/delete_astronomer_sale.js"></script>
 
+<h2>Search Astronomer Sales</h2>
+<p>Search by Astronomer ID using the field below.</p>
+<form id="search-astronomer-sale-html" method='GET' action='/astronomer_sales'>
+    <label for="input-astronomer-id">Search by Astronomer ID: </label>
+    <input type="number" name="astronomer_id" id="input-astronomer-id-html-search">
+    
+    <input type="submit">
+    <a href='/astronomer_sales'><button>Reset</button></a>
+
+<hr style="margin-top: 2.5em" size="3" width="75%" color="black">
+
+
 <h2>Add Astronomer Sale:</h2>
 <p>To add a new Astronomer Sale, please enter the information below and click 'Submit'!</p>
 <form id="add-astronomer-sale-form" method="POST" action="/add-astronomer-sale">
@@ -56,21 +66,7 @@
     <input type="submit">
 </form>
 
-<h2>Search Astronomer Sales</h2>
-<p>Search by Astronomer ID using the field below.</p>
-<form id="search-astronomer-sale-html" method='GET' action='/astronomer_sales'>
-    <label for="input-astronomer-id">Search by Astronomer ID: </label>
-    <input type="number" name="astronomer_id" id="input-astronomer-id-html-search">
-    
-    <input type="submit">
-    <a href='/astronomer_sales'><button>Reset</button></a>
+
 </form>
 </main>
-
-<div> <!--Footer -->
-  <footer>
-    Created by William Franklin and Nathaniel DeShazer
-  </footer>
-<div>
-
 </body>

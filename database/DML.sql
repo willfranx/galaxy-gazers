@@ -84,6 +84,8 @@ SELECT value, date FROM Sales;
 
 SELECT * FROM Print_Sales;
 
+INSERT INTO Print_Sales (print_id, sale_id, quantity, print_price, line_total) VALUES (:print-id-input, :sale-id-input, :quantity-input, :print-price-input, line-total-input)
+
 /* ASTRONOMER SALES to be displayed below Sales table on UI */
 
 -- view the intermediary table Astronomer_Sales

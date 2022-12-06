@@ -19,12 +19,16 @@ table, th, td {
     border: 1px solid;
     border-collapse: collapse;
     padding: 10px;
+    
 }
+
 table td {
     text-align: left;
     vertical-align: bottom;
     height: 30px;
 }
+
+
 
 h1, footer {
     color: lightgreen;

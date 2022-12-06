@@ -5,7 +5,7 @@
 <body>
 
 <main>
-<table>
+<table id=:"print-sales-table">
     <thead>
         <tr>
             {{#each data.[0]}}
@@ -18,18 +18,51 @@
 
     <tbody>
         {{#each data}}
-        <tr>
+        <tr data-value={{this.id}}>
             <td>{{this.id}}</td>
             <td>{{this.print_id}}</td>
             <td>{{this.sale_id}}</td>
             <td>{{this.quantity}}</td>
             <td>{{this.print_price}}</td>
             <td>{{this.line_total}}</td>
+            <td><button onclick="deletePrintSale({{this.id}})">DELETE</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_print_sale.js"></script>
 
+<h2>Search for an Print Sale</h2>
+<p>Search via Print ID</p>
+<form id="search-print-sales-html" method='GET' action='/print_sales'>
+    <label for="input-print-id">Search: </label>
+    <input type="number" name="print_id" id="input-print-id-html-search">
+    
+    <input type="submit">
+    <a href='/print_sales'><button>Reset</button></a>
+</form>
 
+<hr style="margin-top: 2.5em" size="3" width="75%" color="black">
+
+<h2>Add a New Print Sale:</h2>
+<p>Fill out the new the information below and click 'Submit'!</p>
+<form id="add-print-sale-form" method="POST" action="/add-print-sale">
+    <label for="input-print-id">Print ID:</label>
+    <input type="number" name="input-print-id" id="input-print-id">
+    <p>
+    <label for="input-sale-id">Sale ID:</label>
+    <input type="number" name="input-sale-id" id="input-sale-id">
+    <p>
+    <label for="input-quantity">Quantity:</label>
+    <input type="number" name="input-quantity" id="input-quantity">
+    <p>
+    <label for="input-print-price">Print Price:</label>
+    <input type="number" name="input-print-price" id="input-print-price">
+    <p>
+    <label for="input-line-total">Line Total:</label>
+    <input type="number" name="input-line-total" id="input-line-total">
+
+    <input type="submit">
+</form>
 </main>
 </body>

@@ -529,13 +529,70 @@ app.post('/add-print', function(req, res)
 
 app.get('/print_sales', function(req, res)
     {
-        let query1 = "SELECT * FROM Print_Sales;";
+        let query1;
+
+        // Base Table
+        if (req.query.print_id === undefined)
+        {
+            query1 = "SELECT * FROM Print_Sales;";
+        }
+
+        // Search Results Table
+        else
+        {
+            query1 = `SELECT * FROM Print_Sales 
+            WHERE print_id LIKE "${req.query.print_id}%"`
+        }
+
         db.pool.query(query1, function(error, rows, fields){
-            res.render('print_sales', {data: rows});
+            let astronomers = rows
+            return res.render('print_sales', {data: rows, astronomers: astronomers});
         })
     });
 
+app.post('/add-print-sale', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    
+    let data = req.body;
 
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Print_Sales (print_id, sale_id, quantity, print_price, line_total) VALUES ('${data['input-print-id']}', '${data['input-sale-id']}', '${data['input-quantity']}', '${data['input-print-price']}', '${data['input-line-total']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            res.redirect('/print_sales');
+        }
+    })
+});
+
+app.delete('/delete-print-sale/', function(req,res,next){
+    let data = req.body;
+    let printSaleID = parseInt(data.id);
+    let deletePrintSale = `DELETE FROM Print_Sales WHERE id = ?`;
+
+        db.pool.query(deletePrintSale, [printSaleID], function(error, rows, fields){
+            if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            else
+            {
+            res.sendStatus(204);
+            }
+       
+})});
 
 /*
     LISTENER

@@ -28,16 +28,20 @@
     </tbody>
 </table>
 
+<h2>Search Celestial Objects</h2>
+<p>Search by first name using the field below.</p>
+<form id="search-celestial-objects-html" method='GET' action='/celestial_objects'>
+    <label for="input-object-name">Search by Object Name: </label>
+    <input type="text" name="object_name" id="input-celestial-objects-html-search">
+    <input type="submit">
+    <a href='/celestial_objects'><button>Reset</button></a>
+</form>
+
 <h2>Add Celestial Object:</h2>
 <p>To add a new Celestial Object, please enter the information below and click 'Submit'!</p>
 <form id="add-celestial-object-form" method="POST" action="/add-celestial-object">
     <label for="input-astronomer-id">Astronomer ID:</label>
-    <select name="input-astronomer-id" id="input-astronomer-id">
-        <option value="">Select an Astronomer ID:</option>
-        {{#each sales}}
-        <option value="{{this.astronomer_id}}">{{this.astronomer_id}}</option>
-        {{/each}}
-    </select>
+    <input type="number" name="input-astronomer-id" id="input-astronomer-id">
     
     <label for="input-object-type">Object Type:</label>
     <input type="text" name="input-object-type" id="input-object-type">
@@ -48,14 +52,6 @@
     <input type="submit">
 </form>
 
-<h2>Search Celestial Objects</h2>
-<p>Search by first name using the field below.</p>
-<form id="search-celestial-objects-html" method='GET' action='/celestial_objects'>
-    <label for="input-object-name">Search by Object Name: </label>
-    <input type="text" name="object_name" id="input-celestial-objects-html-search">
-    <input type="submit">
-    <a href='/celestial_objects'><button>Reset</button></a>
-</form>
 </main>
 
 <div> 

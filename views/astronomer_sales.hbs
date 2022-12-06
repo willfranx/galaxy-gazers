@@ -40,21 +40,31 @@
 
 <hr style="margin-top: 2.5em" size="3" width="75%" color="black">
 
-
-<h2>Add a New Astronomer Sale:</h2>
-<p>Fill out the new the information below and click 'Submit'!</p>
+<h2>Add Astronomer Sale:</h2>
+<p>To add a new Astronomer Sale, please enter the information below and click 'Submit'!</p>
 <form id="add-astronomer-sale-form" method="POST" action="/add-astronomer-sale">
     <label for="input-astronomer-id">Astronomer ID:</label>
-    <input type="number" name="input-astronomer-id" id="input-astronomer-id">
-
-    <label for="input-sale-id">Sale ID:</label>
-    <input type="number" name="input-sale-id" id="input-sale-id">
+    <select name="input-astronomer-id" id="input-astronomer-id">
+        <option value="">Select an Astronomer ID:</option>
+        {{#each sales}}
+        <option value="{{this.astronomer_id}}">{{this.astronomer_id}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-sale-id">Sale ID: </label>
+    <select name="input-sale-id" id="input-sale-id">
+        <option value="">Select a Sale ID:</option>
+        {{#each sales}}
+        <option value="{{this.sale_id}}">{{this.sale_id}}</option>
+        {{/each}}
+    </select>
 
     <label for="input-profit-due">Profit Due:</label>
     <input type="number" name="input-profit-due" id="input-profit-due">
 
     <input type="submit">
 </form>
+
 
 </main>
 

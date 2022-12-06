@@ -4,6 +4,8 @@ body, html {
     line-height: 1.8;
 }
 
+
+
 body {
     background-image: url(https://upload.wikimedia.org/wikipedia/commons/e/e3/The_Horsehead_Nebula_IC434.jpg);
     background-attachment: fixed;
@@ -11,6 +13,14 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     min-height: 100%;
+}
+
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+table td {
+    text-align: left;
 }
 
 h1, footer {

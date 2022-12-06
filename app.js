@@ -67,6 +67,7 @@ app.get('/astronomers', function(req, res)
 app.post('/add-astronomer', function(req, res) 
 {
     // Capture the incoming data and parse it back to a JS object
+    
     let data = req.body;
 
     // Capture NULL values
@@ -244,9 +245,25 @@ app.post('/add-astronomer-sale', function(req, res)
 {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
-
+    console.log('bootin')
     // Capture NULL values
-    
+    let astronomer_id = parseInt(data.astronomer_id);
+    if (isNaN(astronomer_id))
+    {
+        astronomer_id = 'NULL'
+    }
+
+    let sale_id = parseInt(data.sale_id);
+    if (isNaN(astronomer_id))
+    {
+        sale_id = 'NULL'
+    }
+
+    let profit_due = parseInt(data.profit_due);
+    if (isNaN(profit_due))
+    {
+        profit_due = 'NULL'
+    }
 
     // Create the query and run it on the database
     query1 = `INSERT INTO Astronomer_Sales (astronomer_id, sale_id, profit_due) VALUES ('${data['input-astronomer-id']}', '${data['input-sale-id']}', '${data['input-profit-due']}')`;
@@ -259,6 +276,9 @@ app.post('/add-astronomer-sale', function(req, res)
             console.log(error)
             res.sendStatus(400);
         }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
         else
         {
             res.redirect('/astronomer_sales');
@@ -505,6 +525,8 @@ app.post('/add-print', function(req, res)
     })
 });
 
+// Print Sales
+
 app.get('/print_sales', function(req, res)
     {
         let query1 = "SELECT * FROM Print_Sales;";
@@ -512,6 +534,8 @@ app.get('/print_sales', function(req, res)
             res.render('print_sales', {data: rows});
         })
     });
+
+
 
 /*
     LISTENER

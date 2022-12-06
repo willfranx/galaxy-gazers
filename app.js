@@ -59,9 +59,8 @@ app.get('/astronomers', function(req, res)
         }
 
         db.pool.query(query1, function(error, rows, fields){
-
-            let sales = rows
-            return res.render('astronomers', {data: rows, sales: sales});
+            let astronomers = rows
+            return res.render('astronomers', {data: rows, astronomers: astronomers});
         })
     });
 
@@ -157,7 +156,65 @@ app.put('/put-astronomer', function(req,res,next){
               }
 })});
 
-//ASTRONOMER SALES
+// Sales
+app.get('/sales', function(req, res)
+    {
+        let query1;
+
+        // Base Table
+        if (req.query.date === undefined)
+        {
+            query1 = "SELECT * FROM Sales;";
+        }
+
+        // Search Results Table
+        else
+        {
+            query1 = `SELECT * FROM Sales WHERE date LIKE "${req.query.date}%"`
+        }
+
+        db.pool.query(query1, function(error, rows, fields){
+            let sales = rows
+            return res.render('sales', {data: rows, sales: sales});
+        })
+    });
+
+app.post('/add-sale', function(req, res) 
+{
+    let data = req.body;
+
+    // Capture NULL values
+    let value = parseInt(data.value);
+    if (isNaN(value))
+    {
+        value = 'NULL'
+    }
+
+    let date = parseInt(data.date);
+    if (isNaN(value))
+    {
+        date = 'NULL'
+    }
+
+    query1 = `INSERT INTO Sales (customer_id, value, date) VALUES ('${data['input-customer-id']}', '${data['input-value']}', '${data['input-date']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            res.redirect('/sales');
+        }
+    })
+});
+
+
+// ASTRONOMER SALES
 app.get('/astronomer_sales', function(req, res)
     {
         let query1;

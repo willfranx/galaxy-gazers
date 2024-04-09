@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celestial Objects</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./js/update_astronomer.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+
+
+    <nav>
+        <a href="/index">Home</a> |
+        <a href="/astronomers">Astronomers</a> |
+        <a href="/celestial_objects">Celestial Objects</a> |
+        <a href="/customers">Customers</a> |
+        <a href="/prints">Prints</a> |
+        <a href="/print_sales">Print Sales</a> |
+        <a href="/astronomer_sales">Astronomer Sales</a>
+    </nav>
+</head>
+
+<body>
+<h1>Celestial Objects</h1>
+
+<main>
+<table>
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.object_id}}</td>
+            <td>{{this.astronomer_id}}</td>
+            <td>{{this.object_type}}</td>
+            <td>{{this.object_name}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Add Celestial Object:</h2>
+<p>To add a new Celestial Object, please enter the information below and click 'Submit'!</p>
+<form id="add-celestial-object-form" method="POST" action="/add-celestial-object">
+    <label for="input-astronomer-id">Astronomer ID:</label>
+    <select name="input-astronomer-id" id="input-astronomer-id">
+        <option value="">Select an Astronomer ID:</option>
+        {{#each sales}}
+        <option value="{{this.astronomer_id}}">{{this.astronomer_id}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-object-type">Object Type:</label>
+    <input type="text" name="input-object-type" id="input-object-type">
+
+    <label for="input-object-name">Object Name:</label>
+    <input type="text" name="input-object-name" id="input-object-name">
+
+    <input type="submit">
+</form>
+
+<h2>Search Celestial Objects</h2>
+<p>Search by first name using the field below.</p>
+<form id="search-celestial-objects-html" method='GET' action='/celestial_objects'>
+    <label for="input-object-name">Search by Object Name: </label>
+    <input type="text" name="object_name" id="input-celestial-objects-html-search">
+    
+    <input type="submit">
+    <a href='/celestial_objects'><button>Reset</button></a>
+</form>
+</main>
+
+<div> <!--Footer -->
+  <footer>
+    Created by William Franklin and Nathaniel DeShazer
+  </footer>
+<div>
+
+</body>

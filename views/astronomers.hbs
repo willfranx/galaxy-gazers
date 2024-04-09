@@ -1,26 +1,120 @@
-<table>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomers</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./js/update_astronomer.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <nav>
+        <a href="/index">Home</a> |
+        <a href="/astronomers">Astronomers</a> |
+        <a href="/celestial_objects">Celestial Objects</a> |
+        <a href="/customers">Customers</a> |
+        <a href="/prints">Prints</a> |
+        <a href="/print_sales">Print Sales</a> |
+        <a href="/astronomer_sales">Astronomer Sales</a>
+    </nav>
+</head>
+
+<body>
+
+<h1>Astronomers</h1>
+
+<main>
+<table id=:"astronomers-table">
     <thead>
 
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
         <tr>
             {{#each data.[0]}}
             <th>
                 {{@key}}
             </th>
             {{/each}}
+            <th>delete</th>
         </tr>
     </thead>
 
     <tbody>
-
         {{#each data}}
-        <tr>
+        <tr data-value={{this.astronomer_id}}>
             <td>{{this.astronomer_id}}</td>
             <td>{{this.first_name}}</td>
             <td>{{this.last_name}}</td>
             <td>{{this.email}}</td>
-            <td>{{this.social_media}}</td>
+            <td>{{this.social_media_handle}}</td>
+            <td><button onclick="deleteAstronomer({{this.astronomer_id}})">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
+<script src="./js/delete_astronomer.js"></script>
+
+<h2>Add Astronomer:</h2>
+<p>To add a new Astronomer, please enter the information below and click 'Submit'!</p>
+<form id="add-astronomer-form" method="POST" action="/add-astronomer">
+    <label for="input-first-name">First name:</label>
+    <input type="text" name="input-first-name" id="input-first-name">
+
+    <label for="input-last-name">Last name:</label>
+    <input type="text" name="input-last-name" id="input-last-name">
+
+    <label for="input-email">Email:</label>
+    <input type="text" name="input-email" id="input-email">
+
+    <label for="input-social-media-handle">Social Media Handle:</label>
+    <input type="text" name="input-social-media-handle" id="input-social-media-handle">
+
+    <input type="submit">
+</form>
+
+<h2>Search Astronomer Sales</h2>
+<p>Search by first name using the field below.</p>
+<form id="search-astronomers-html" method='GET' action='/astronomers'>
+    <label for="input-first-name">Search by Astronomer ID: </label>
+    <input type="text" name="first_name" id="input-astronomer-html-search">
+    
+    <input type="submit">
+    <a href='/astronomers'><button>Reset</button></a>
+</form>
+
+<h2>Update an Astronomer</h2>
+<p>To update a specific astronomer, select their name from the drop-down menu</p>
+<form id="update-astronomer-form">
+
+    <label for="input-fullname">Select an Astronomer: </label>
+    <select name="input-fullname" id="mySelect">
+        <option value="test">ID, Full name</option>
+        {{#each data}}
+        <option value="{{this.astronomer_id}}">{{this.astronomer_id}}, {{this.first_name}} {{this.last_name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="update-first-name">First Name: </label>
+    <input type="text" name="update-first-name" id="update-first-name">
+
+    <label for="update-last-name">Last Name: </label>
+    <input type="text" name="update-last-name" id="update-last-name">
+
+    <label for="update-email">Email: </label>
+    <input type="text" name="update-email" id="update-email">
+    
+    <label for="update-social-media-handle">Social Media Handle: </label>
+    <input type="text" name="update-social-media-handle" id="update-social-media-handle">
+    
+    <input type="submit">
+</form>
+</main>
+
+<div> <!--Footer -->
+  <footer>
+    Created by William Franklin and Nathaniel DeShazer
+  </footer>
+<div>
+
+</body>

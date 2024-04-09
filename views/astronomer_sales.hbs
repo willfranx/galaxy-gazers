@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomer Sales</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <nav>
+        <a href="/index">Home</a> |
+        <a href="/astronomers">Astronomers</a> |
+        <a href="/celestial_objects">Celestial Objects</a> |
+        <a href="/customers">Customers</a> |
+        <a href="/prints">Prints</a> |
+        <a href="/print_sales">Print Sales</a> |
+        <a href="/astronomer_sales">Astronomer Sales</a>
+    </nav>
+</head>
+
+<body>
+<h1>Astronomer Sales</h1>
+
+<main>
+<table id="astronomer-sales-table">
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.id}}>
+            <td>{{this.id}}</td>
+            <td>{{this.astronomer_id}}</td>
+            <td>{{this.sale_id}}</td>
+            <td>{{this.profit_due}}</td>
+            <td><button onclick="deleteAstronomerSale({{this.id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="../public/js/delete_astronomer_sale.js"></script>
+
+<h2>Add Astronomer Sale:</h2>
+<p>To add a new Astronomer Sale, please enter the information below and click 'Submit'!</p>
+<form id="add-astronomer-sale-form" method="POST" action="/add-astronomer-sale">
+    <label for="input-astronomer-id">Astronomer ID:</label>
+    <select name="input-astronomer-id" id="input-astronomer-id">
+        <option value="">Select an Astronomer ID:</option>
+        {{#each sales}}
+        <option value="{{this.astronomer_id}}">{{this.astronomer_id}}</option>
+        {{/each}}
+    </select>
+    
+    <label for="input-sale-id">Sale ID: </label>
+    <select name="input-sale-id" id="input-sale-id">
+        <option value="">Select a Sale ID:</option>
+        {{#each sales}}
+        <option value="{{this.sale_id}}">{{this.sale_id}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-profit-due">Profit Due:</label>
+    <input type="number" name="input-profit-due" id="input-profit-due">
+
+    <input type="submit">
+</form>
+
+<h2>Search Astronomer Sales</h2>
+<p>Search by Astronomer ID using the field below.</p>
+<form id="search-astronomer-sale-html" method='GET' action='/astronomer_sales'>
+    <label for="input-astronomer-id">Search by Astronomer ID: </label>
+    <input type="number" name="astronomer_id" id="input-astronomer-id-html-search">
+    
+    <input type="submit">
+    <a href='/astronomer_sales'><button>Reset</button></a>
+</form>
+</main>
+
+<div> <!--Footer -->
+  <footer>
+    Created by William Franklin and Nathaniel DeShazer
+  </footer>
+<div>
+
+</body>

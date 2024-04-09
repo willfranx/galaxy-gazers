@@ -1,90 +1,49 @@
-<!-- index.hbs -->
-<h1>Welcome to the Galaxy Gazers Home Page!</h1>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
 
-<table id="astronomer-sales-table">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galaxy Gazers</title>
 
-    <thead>
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
-            {{/each}}
-            <th>delete</th>
-        </tr>
-    </thead>
+  <link rel="stylesheet" href="./css/style.css">
 
-    <tbody>
-        {{#each data}}
-        <tr>
-            <td>{{this.id}}</td>
-            <td>{{this.astronomer_id}}</td>
-            <td>{{this.sale_id}}</td>
-            <td>{{this.profit_due}}</td>
-            <td><button onclick="deleteAstronomerSale({{this.id}})">Delete</button></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-<script src="./js/delete_person.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+  <nav>
+      <a href="/index">Home</a> |
+      <a href="/astronomers">Astronomers</a> |
+      <a href="/celestial_objects">Celestial Objects</a> |
+      <a href="/customers">Customers</a> |
+      <a href="/prints">Prints</a> |
+      <a href="/print_sales">Print Sales</a> |
+      <a href="/astronomer_sales">Astronomer Sales</a>
+  </nav>
+</head>
 
-{{!-- Form to add a record to the table  --}}
-<h2>Adding Data with AJAX</h2>
-<p>To add a new person, please enter their information below and click 'Submit'!</p>
-<form id="add-astronomer-sale-form-ajax">
-    <label for="input-astronomer-id">Astronomer: </label>
-    <select name="input-astronomer-id" id="input-astronomer-sale-ajax">
-        <option value="">Select an astronomer</option>
-        {{#each astronomers}}
-        <option value="{{this.id}}">{{this.first_name}}</option>
-        {{/each}}
-    </select>
-    
-    <label for="input-sale-id">Sale ID: </label>
-    <input type="number" name="input-sale-id" id="input-sale-id">
+<body>
+<div> <!-- Title -->
+  <h1>Welcome to the Galaxy Gazers Home Page!</h1>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<div>
 
-    <label for="input-profit-due">Profit Due: </label>
-    <input type="number" name="input-profit-due" id="input-profit-due">
+<div> <!-- Main content -->
+  <main>
+    <h3>Site Contents</h3>
+    <ul><li><a href="/astronomers">Astronomers</a></li></ul>
+    <ul><li><a href="/celestial_objects">Celestial Objects</a></li></ul>
+    <ul><li><a href="/customers">Customers</a></li></ul>
+    <ul><li><a href="/prints">Prints</a></li></ul>
+    <ul><li><a href="/print_sales">Print Sales</a></li></ul>
+    <ul><li><a href="/astronomer_sales">Astronomer Sales</a></li></ul>
+  </main>
+</div>
+  
+<div> <!--Footer -->
+  <footer>
+    Created by William Franklin and Nathaniel DeShazer
+  </footer>
+<div>
 
-    <input type="submit">
-</form>
-
-<h2>Search Using an HTML Form</h2>
-<p>Search by sale id using the field below.</p>
-<form id="search-person-html" method='GET' action='/'>
-    <label for="input-sale-id">Search by Sale ID: </label>
-    <input type="number" name="sale_id" id="input-sale-id-html-search">
-    
-    <input type="submit">
-    <a href='/'><button>Reset</button></a>
-</form>
-
-<h2>Updating Astronomer Sales Form</h2>
-<p>Select the sale ID from the dropdown and input the profit due.</p>
-<form id="update-astronomer-sales-form-ajax">
-
-    <label for="input-sale-id">Sale ID: </label>
-    <select name="input-sale-id" id="input-sale-id-update">
-        <option>Select a Sale ID</option>
-        {{#each astronomer_sale}}
-        <option value="{{this.id}}">{{this.sale_id}}</option>
-        {{/each}}
-    </select>
-
-    <label for="input-astronomer-id">Astronomer: </label>
-    <select name="input-astronomer-id" id="input-astronomer-id-update">
-        <option>Select an Astronomer</option>
-        {{#each astronomers}}
-        <option value="{{this.id}}">{{this.first_name}}</option>
-        {{/each}}
-    </select>
-    <input type="submit">
-
-</form>
-
-<script src="./js/update_astronomer_sale.js"></script>
-
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="./js/add_astronomer_sale.js"></script>
+</body>
+</html>

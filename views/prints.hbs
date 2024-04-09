@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prints</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./js/update_astronomer.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <nav>
+        <a href="/index">Home</a> |
+        <a href="/astronomers">Astronomers</a> |
+        <a href="/celestial_objects">Celestial Objects</a> |
+        <a href="/customers">Customers</a> |
+        <a href="/prints">Prints</a> |
+        <a href="/print_sales">Print Sales</a> |
+        <a href="/astronomer_sales">Astronomer Sales</a>
+    </nav>
+</head>
+
+<body>
+<h1>Prints</h1>
+
+<main>
+<table>
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.print_id}}</td>
+            <td>{{this.num_stock}}</td>
+            <td>{{this.astronomer_id}}</td>
+            <td>{{this.object_id}}</td>
+            <td>{{this.price}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h2>Add Print:</h2>
+<p>To add a new Print, please enter the information below and click 'Submit'!</p>
+<form id="add-prints-form" method="POST" action="/add-print">
+    
+    <label for="input-num-stock">Num Stock:</label>
+    <input type="number" name="input-num-stock" id="input-num-stock">
+
+    <label for="input-astronomer-id">Astronomer ID:</label>
+    <input type="number" name="input-astronomer-id" id="input-astronomer-id">
+    
+    <label for="input-object-id">Object ID:</label>
+    <input type="number" name="input-object-id" id="input-object-id">
+
+    <label for="input-price">Price:</label>
+    <input type="number" step="0.01" name="input-price" id="input-price">
+
+    <input type="submit">
+</form>
+
+<h2>Search Prints</h2>
+<p>Search by Print ID using the field below.</p>
+<form id="search-prints-html" method='GET' action='/prints'>
+    <label for="input-prints">Search by Print ID: </label>
+    <input type="number" name="print_id" id="input-prints-html-search">
+    
+    <input type="submit">
+    <a href='/prints'><button>Reset</button></a>
+</form>
+</main>
+
+<div> <!--Footer -->
+  <footer>
+    Created by William Franklin and Nathaniel DeShazer
+  </footer>
+<div>
+
+</body>
